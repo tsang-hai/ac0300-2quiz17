@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>學生自我評測系統</title>
+<style>
+  html, body { background-color: #fbfbfa; margin: 0; padding: 0; width: 100%; -webkit-text-size-adjust: 100%; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif; color: #37352f; display: flex; flex-direction: column; align-items: center; box-sizing: border-box; padding: 16px 12px; }
+  .quiz-title { font-size: 22px; font-weight: 700; margin: 15px 0; text-align: center; width: 100%; }
+  .quiz-container { width: 100%; max-width: 100%; box-sizing: border-box; display: flex; flex-direction: column; gap: 16px; }
+  .card { background: #ffffff; border: 1px solid #e9e9e6; border-radius: 12px; padding: 20px 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.04); box-sizing: border-box; width: 100%; position: relative; }
+  .badge { display: inline-block; font-size: 11px; font-weight: 500; padding: 3px 8px; border-radius: 4px; margin-bottom: 12px; background: #e3e2e0; color: #5f5e5b; }
+  .badge.multi { background: #eae6ff; color: #4022b8; }
+  .question { font-size: 16px; font-weight: 600; line-height: 1.5; margin-bottom: 16px; word-break: break-all; }
+  .options { display: flex; flex-direction: column; gap: 10px; width: 100%; }
+  .option-btn { width: 100%; text-align: left; background: #ffffff; border: 1px solid #e9e9e6; padding: 14px 12px; border-radius: 8px; cursor: pointer; font-size: 15px; transition: all 0.15s; color: #37352f; outline: none; box-sizing: border-box; -webkit-tap-highlight-color: transparent; line-height: 1.4; }
+  .option-btn.selected { border-color: #2f54eb; background: #f0f5ff; color: #1d39c4; font-weight: 500; }
+  .option-btn.correct { background-color: #e2f6ea !important; border-color: #52c41a !important; color: #135200; font-weight: bold; }
+  .option-btn.wrong { background-color: #ffeef0 !important; border-color: #ff4d4f !important; color: #a8071a; }
+  .submit-btn { width: 100%; background: #2383e2; color: white; border: none; padding: 14px; border-radius: 8px; font-size: 15px; font-weight: 600; cursor: pointer; margin-top: 14px; transition: background 0.15s; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  .explanation { display: none; margin-top: 16px; padding: 14px; background: #f7f6f3; border-left: 4px solid #2383e2; border-radius: 4px; font-size: 14px; line-height: 1.6; word-break: break-all; }
+  .close-btn { width: 100%; border: none; padding: 15px; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; margin-top: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); -webkit-tap-highlight-color: transparent; background: #8c8c8c; color: white; margin-bottom: 10px; }
+  .copyright { font-size: 12px; color: #8c8c8c; text-align: center; margin: 25px 0 10px 0; width: 100%; font-weight: 400; letter-spacing: 0.5px; }
+</style>
+</head>
+<body>
+<div class="quiz-title">📝第 17 章 學生自我評測</div>
+<div class="quiz-container">
+  <div class="card">
+    <span class="badge ">單選題</span>
+    <div class="question">Q1. 甲公司持有乙公司及丙公司控制股權，於X5年中出售乙公司及丙公司一半股權，分別收得現金$3,520,000及$6,400,000。若股權出售後甲公司對丙公司仍具有控制，對乙公司則喪失控制，則甲公司對出售股權收到的現金在X5年現金流量表中之表達為：  [108鐵路特考中會]</div>
+    <div class="options">
+      <button class="option-btn"  onclick="selectSingle(this)">A. $9,920,000全部列為投資活動現金流入</button>
+      <button class="option-btn"  onclick="selectSingle(this)">B. $9,920,000全部列為籌資活動現金流入</button>
+      <button class="option-btn"  onclick="selectSingle(this)">C. $3,520,000列為籌資活動現金流入；$6,400,000列為投資活動現金流入</button>
+      <button class="option-btn" data-correct="true" onclick="selectSingle(this)">D. $6,400,000列為籌資活動現金流入；$3,520,000列為投資活動現金流入</button>
+    </div>
+    <button class="submit-btn" onclick="checkAnswer(this)">確認提交此題</button>
+    <div class="explanation"><strong>💡 解析：</strong><br>無提供解析資訊。</div>
+  </div>
+  <div class="card">
+    <span class="badge ">單選題</span>
+    <div class="question">Q2. 甲公司X8年度相關資料如下：存貨總額增加$200,000、備抵跌價損失增加$300,000，及應付帳款增加$150,000。已知甲公司X8年度銷貨成本為$6,600,000(含存貨跌價損失$300,000)，則甲公司X8年度支付供應商貨款是多少？  [108地特中會]</div>
+    <div class="options">
+      <button class="option-btn"  onclick="selectSingle(this)">A. $6,050,000</button>
+      <button class="option-btn" data-correct="true" onclick="selectSingle(this)">B. $6,350,000</button>
+      <button class="option-btn"  onclick="selectSingle(this)">C. $6,550,000</button>
+      <button class="option-btn"  onclick="selectSingle(this)">D. $6,650,000</button>
+    </div>
+    <button class="submit-btn" onclick="checkAnswer(this)">確認提交此題</button>
+    <div class="explanation"><strong>💡 解析：</strong><br>$6,600,000+$200,000-$300,000-$150,000=$6,350,000</div>
+  </div>
+  <div class="card">
+    <span class="badge ">單選題</span>
+    <div class="question">Q3. 甲公司X9年度與現金流量表相關資料如下：(1)本期淨利$400,000。(2)出售機器得款(含處分資產利得$100,000)$350,000。(3)支付利息$200,000。(4)支付所得稅$70,000。(5)折舊費用$90,000。(6)信用風險損失$50,000。(7)應收帳款淨額增加$60,000。(8)存貨減少$38,000。試問甲公司X9年度營業活動之淨現金流量為何？  [108薦任升等]</div>
+    <div class="options">
+      <button class="option-btn"  onclick="selectSingle(this)">A. $318,000</button>
+      <button class="option-btn" data-correct="true" onclick="selectSingle(this)">B. $368,000</button>
+      <button class="option-btn"  onclick="selectSingle(this)">C. $412,000</button>
+      <button class="option-btn"  onclick="selectSingle(this)">D. $638,000</button>
+    </div>
+    <button class="submit-btn" onclick="checkAnswer(this)">確認提交此題</button>
+    <div class="explanation"><strong>💡 解析：</strong><br>營業活動淨現金流入=$400,000+$90,000-$100,000-$60,000+$38,000=$368,000</div>
+  </div>
+  <div class="card">
+    <span class="badge ">單選題</span>
+    <div class="question">Q4. 甲汽車製造公司X2年底營業活動淨現金流入為$420,000，與應收帳款相關之預期信用減損損失$20,000，折舊費用$50,000，應付公司債溢價攤銷$13,000，應收帳款淨額增加$150,000，遞延所得稅負債減少$5,000，應付股利增加$80,000，採權益法認列之關聯企業損失份額$60,000，利息費用$37,000，宣告股利$100,000。因利息及股利在現金流量表各有不同活動歸類選項，請問甲公司X2年度淨利不可能為下列何者？  [109高考會審]</div>
+    <div class="options">
+      <button class="option-btn"  onclick="selectSingle(this)">A. $428,000</button>
+      <button class="option-btn"  onclick="selectSingle(this)">B. $448,000</button>
+      <button class="option-btn"  onclick="selectSingle(this)">C. $478,000</button>
+      <button class="option-btn" data-correct="true" onclick="selectSingle(this)">D. $488,000</button>
+    </div>
+    <button class="submit-btn" onclick="checkAnswer(this)">確認提交此題</button>
+    <div class="explanation"><strong>💡 解析：</strong><br>利息列營業活動：<br>淨利+$50,000-$13,000-$150,000-$5,000+$60,000=$420,000，淨利=$478,000<br>利息及股利皆不列營業活動：<br>淨利+$50,000-$150,000-$5,000+$60,000+$37,000=$420,000<br>淨利=$428,000<br>股利列營業活動：<br>淨利+$50,000-$150,000-$5,000+$80,000+$60,000+$37,000-$100,000=$420,000<br>淨利=$448,000<br>利息及股利皆列營業活動：<br>淨利+$50,000-$13,000-$150,000-$5,000+$80,000+$60,000-$100,000=$420,000<br>淨利=$498,000</div>
+  </div>
+  <div class="card">
+    <span class="badge ">單選題</span>
+    <div class="question">Q5. 截至2019年12月31日，甲公司的本期淨利為$1,800,000，相關資訊如下：(1)工廠資產折舊$900,000。(2)租賃資產改良攤銷$510,000。(3)短期應收款備抵壞帳增加$180,000。(4)長期應收款備抵壞帳增加$150,000。(5)長期借款利息費用$120,000。(6)長期借款支付利息$90,000。基於上述資訊，假設利息費用列為營業活動，請問2019年度的現金流量表中，來自營業活動的現金流量淨額應為何？  [109鐵路特考中會]</div>
+    <div class="options">
+      <button class="option-btn"  onclick="selectSingle(this)">A. $3,390,000</button>
+      <button class="option-btn"  onclick="selectSingle(this)">B. $3,420,000</button>
+      <button class="option-btn"  onclick="selectSingle(this)">C. $3,540,000</button>
+      <button class="option-btn" data-correct="true" onclick="selectSingle(this)">D. $3,570,000</button>
+    </div>
+    <button class="submit-btn" onclick="checkAnswer(this)">確認提交此題</button>
+    <div class="explanation"><strong>💡 解析：</strong><br>營業活動現金流量=$1,800,000+$900,000+$510,000+$180,000+$150,000+$120,000-$90,000=$3,570,000</div>
+  </div>
+  <div class="card">
+    <span class="badge ">單選題</span>
+    <div class="question">Q6. 甲公司現金流量表採用「改良式間接法」表達，並以「本期稅前淨利」調整非現金項目方式進行，公司將支付利息列為籌資活動之現金流量。X2年度的財務報表顯示下列資料：(1)本期稅前淨利$1,000,000。(2)所得稅費用$200,000。(3)折舊費用$100,000。(4)呆帳費用$50,000。(5)利息費用$250,000。(6)應收帳款淨額減少$300,000。(7)存貨增加$40,000。(8)應付帳款增加$250,000。(9)應付利息增加$30,000。(10)應付公司債折價攤銷$20,000。試問甲公司X2年度「營業產生之現金流量」金額為何？  [110地特中會]</div>
+    <div class="options">
+      <button class="option-btn"  onclick="selectSingle(this)">A. $1,600,000</button>
+      <button class="option-btn"  onclick="selectSingle(this)">B. $1,650,000</button>
+      <button class="option-btn"  onclick="selectSingle(this)">C. $1,700,000</button>
+      <button class="option-btn" data-correct="true" onclick="selectSingle(this)">D. $1,860,000</button>
+    </div>
+    <button class="submit-btn" onclick="checkAnswer(this)">確認提交此題</button>
+    <div class="explanation"><strong>💡 解析：</strong><br>營業產生之現金流量=$1,000,000+$100,000+$250,000+$300,000-$40,000+$250,000=$1,860,000</div>
+  </div>
+  <div class="card">
+    <span class="badge ">單選題</span>
+    <div class="question">Q7. 甲公司X2年相關資料如下：存貨總額增加$300,000、備抵跌價損失增加$200,000，及應付帳款減少$150,000。已知甲公司X2年度銷貨成本(含存貨跌價損失)為$3,300,000，則甲公司X2年度支付供應商貨款是多少？  [111高考會審]</div>
+    <div class="options">
+      <button class="option-btn"  onclick="selectSingle(this)">A. $3,050,000</button>
+      <button class="option-btn"  onclick="selectSingle(this)">B. $3,250,000</button>
+      <button class="option-btn" data-correct="true" onclick="selectSingle(this)">C. $3,550,000</button>
+      <button class="option-btn"  onclick="selectSingle(this)">D. $3,950,000</button>
+    </div>
+    <button class="submit-btn" onclick="checkAnswer(this)">確認提交此題</button>
+    <div class="explanation"><strong>💡 解析：</strong><br>$3,300,000+$300,000-$200,000+$150,000=$3,550,000</div>
+  </div>
+  <div class="card">
+    <span class="badge ">單選題</span>
+    <div class="question">Q8. 甲公司X2年度財務資料顯示：本期淨利$800,000，折舊費用$40,000，減損損失(應收帳款之預期信用損失)$20,000，應收帳款淨額增加數$60,000，預付貨款減少數$30,000，債券投資溢價攤銷$3,000，利息收入$75,000，因存貨計價方法改變而產生遞延所得稅負債增加$50,000。若甲公司將利息收現列為投資活動之現金流量，則甲公司X2年度營業活動之淨現金流入數為何？  [111鐵路特考中會]</div>
+    <div class="options">
+      <button class="option-btn" data-correct="true" onclick="selectSingle(this)">A. $735,000</button>
+      <button class="option-btn"  onclick="selectSingle(this)">B. $788,000</button>
+      <button class="option-btn"  onclick="selectSingle(this)">C. $813,000</button>
+      <button class="option-btn"  onclick="selectSingle(this)">D. $860,000</button>
+    </div>
+    <button class="submit-btn" onclick="checkAnswer(this)">確認提交此題</button>
+    <div class="explanation"><strong>💡 解析：</strong><br>營業活動之淨現金流入數=$800,000+$40,000-$60,000+$30,000-$75,000=$735,000</div>
+  </div>
+  <div class="card">
+    <span class="badge ">單選題</span>
+    <div class="question">Q9. 甲公司111年度稅前淨利$1,000,000，其他相關資料如下：(1)建築物折舊費用$200,000。(2)專利權攤銷$50,000。(3)出售設備得款(含資產處分利益$10,000)$180,000。(4)預期信用減損損失$15,000。(5)應收帳款增加數$10,000。(6)存貨增加數$20,000。(7)預收收入減少數$30,000。(8)應付帳款增加數$40,000。(9)支付所得稅$70,000。甲公司採間接法編製現金流量表，試問甲公司111年度來自營業活動之現金流量為多少？  [112高考會審]</div>
+    <div class="options">
+      <button class="option-btn"  onclick="selectSingle(this)">A. 營業活動之淨現金流量流入$1,205,000</button>
+      <button class="option-btn"  onclick="selectSingle(this)">B. 營業活動之淨現金流量流入$1,225,000</button>
+      <button class="option-btn" data-correct="true" onclick="selectSingle(this)">C. 營業活動之淨現金流量流入$1,165,000</button>
+      <button class="option-btn"  onclick="selectSingle(this)">D. 營業活動之淨現金流量流入$1,245,000</button>
+    </div>
+    <button class="submit-btn" onclick="checkAnswer(this)">確認提交此題</button>
+    <div class="explanation"><strong>💡 解析：</strong><br>營業活動淨現金流入=$1,000,000+$200,000+$50,000+$(10,000)+$15,000+$(10,000)+$(20,000)+$(30,000)+$40,000+$(70,000)=$1,165,000</div>
+  </div>
+  <div class="card">
+    <span class="badge ">單選題</span>
+    <div class="question">Q10. 甲公司X1年度相關資料如下：本期淨利$550,000，所得稅費用$30,000，利息費用$5,000，處分機器損失$30,000，折舊費用$25,000，應收帳款增加$30,000，存貨增加$10,000，應付帳款增加$20,000，預付費用增加$22,000，應付利息增加$8,000，本期所得稅負債增加$6,000，根據上述資料，甲公司X1年度營運產生之現金流量為何？  [112鐵路特考中會]</div>
+    <div class="options">
+      <button class="option-btn"  onclick="selectSingle(this)">A. $538,000</button>
+      <button class="option-btn"  onclick="selectSingle(this)">B. $590,000</button>
+      <button class="option-btn" data-correct="true" onclick="selectSingle(this)">C. $598,000</button>
+      <button class="option-btn"  onclick="selectSingle(this)">D. $606,000</button>
+    </div>
+    <button class="submit-btn" onclick="checkAnswer(this)">確認提交此題</button>
+    <div class="explanation"><strong>💡 解析：</strong><br>營運產生之現金流量=$580,000+$5,000+$30,000+$25,000-$30,000-$10,000+$20,000-$22,000=$598,000</div>
+  </div>
+  <div class="card">
+    <span class="badge ">單選題</span>
+    <div class="question">Q11. 甲公司X1年底營業活動淨現金流入為$450,000，本期賒銷之銷貨收入$100,000，應收帳款收現$80,000，沖銷無法收回之帳款$5,000，提列預期信用減損損失$10,000，折舊費用$25,000，應付公司債折價攤銷$13,000，遞延所得稅負債增加$15,000，應付股利增加$60,000，採權益法認列之關聯企業損失份額$80,000，利息費用$27,000，宣告股利$120,000。因利息及股利在現金流量表各有不同活動歸類選項，請問甲公司X1年度淨利不可能為下列何者？  [112地特中會]</div>
+    <div class="options">
+      <button class="option-btn"  onclick="selectSingle(this)">A. $313,000</button>
+      <button class="option-btn"  onclick="selectSingle(this)">B. $327,000</button>
+      <button class="option-btn"  onclick="selectSingle(this)">C. $373,000</button>
+      <button class="option-btn" data-correct="true" onclick="selectSingle(this)">D. $388,000</button>
+    </div>
+    <button class="submit-btn" onclick="checkAnswer(this)">確認提交此題</button>
+    <div class="explanation"><strong>💡 解析：</strong><br>利息支付現金數=$27,000-$13,000=$14,000<br>股利支付現金數=$120,000-$60,000=$60,000<br>淨利+$42,000+$15,000+$80,000=$450,000，淨利=$313,000<br>淨利+$42,000+$15,000+$80,000-$14,000-$60,000=$450,000，淨利=$387,000<br>淨利+$42,000+$15,000+$80,000-$14,000=$450,000，淨利=$327,000<br>淨利+$42,000+$15,000+$80,000-$60,000=$450,000，淨利=$373,000</div>
+  </div>
+  <div class="card">
+    <span class="badge ">單選題</span>
+    <div class="question">Q12. 南投公司以間接法編製現金流量表。下列有幾項應在其營業活動現金流量中列為本期損益之加項？(1)處分機器設備之利益。(2)透過其他綜合損益按公允價值衡量之證券投資，於期末評價產生之未實現損失增加數。(3)權益證券投資採權益法處理所認列之投資損失。(4)融資租賃中使用權資產之折舊費用。(5)⑤依員工認股計畫所認列之酬勞費用。  [112薦任升等]</div>
+    <div class="options">
+      <button class="option-btn"  onclick="selectSingle(this)">A. 兩項</button>
+      <button class="option-btn" data-correct="true" onclick="selectSingle(this)">B. 三項</button>
+      <button class="option-btn"  onclick="selectSingle(this)">C. 四項</button>
+      <button class="option-btn"  onclick="selectSingle(this)">D. 五項</button>
+    </div>
+    <button class="submit-btn" onclick="checkAnswer(this)">確認提交此題</button>
+    <div class="explanation"><strong>💡 解析：</strong><br>(2)(4)(5)</div>
+  </div>
+  <div class="card">
+    <span class="badge ">單選題</span>
+    <div class="question">Q13. 甲公司X1年初應收帳款餘額為$2,000,000，X1年底應收帳款餘額為$1,300,000，X1年沖銷應收帳款$250,000，並於X1年底認列預期信用減損損失$20,000。若甲公司X1年度之銷貨收入淨額為$5,800,000(全為賒銷)，則X1年度甲公司向客戶收取之現金為何？  [110鐵路特考中會]</div>
+    <div class="options">
+      <button class="option-btn" data-correct="true" onclick="selectSingle(this)">A. $6,250,000</button>
+      <button class="option-btn"  onclick="selectSingle(this)">B. $6,290,000</button>
+      <button class="option-btn"  onclick="selectSingle(this)">C. $6,500,000</button>
+      <button class="option-btn"  onclick="selectSingle(this)">D. $6,750,000</button>
+    </div>
+    <button class="submit-btn" onclick="checkAnswer(this)">確認提交此題</button>
+    <div class="explanation"><strong>💡 解析：</strong><br>$2,000,000+$5,800,000-$250,000-收取現金=$1,300,000，收取現金=$6,250,000</div>
+  </div>
+  <div class="card">
+    <span class="badge ">單選題</span>
+    <div class="question">Q14. 以間接法編製現金流量表時，下列何者應列為營業活動現金流量中本期損益之加項？  [113地特三等]</div>
+    <div class="options">
+      <button class="option-btn"  onclick="selectSingle(this)">A. 預付退休金之增加數</button>
+      <button class="option-btn"  onclick="selectSingle(this)">B. 採權益法處理之權益投資工具產生之投資收益</button>
+      <button class="option-btn" data-correct="true" onclick="selectSingle(this)">C. 按員工認股計畫所認列之酬勞費用</button>
+      <button class="option-btn"  onclick="selectSingle(this)">D. 透過其他綜合損益按公允價值衡量之金融資產，期末依公允價值變動而導致的未實現損失</button>
+    </div>
+    <button class="submit-btn" onclick="checkAnswer(this)">確認提交此題</button>
+    <div class="explanation"><strong>💡 解析：</strong><br>無提供解析資訊。</div>
+  </div>
+  <div class="card">
+    <span class="badge ">單選題</span>
+    <div class="question">Q15. 甲公司以間接法編製現金流量表，X4年相關資料如下：出售交易目的證券投資得款$50,000，採權益法之長期股權投資收到股利$80,000，購買一部設備付款$250,000，發行公司債$500,000，支付現金股利$56,000，交易目的證券投資評價利得$9,000。X4年度折舊費用$60,000，權益法認列投資收益$120,000，應收帳款淨額減少$66,000，應付帳款增加$58,000，存貨增加$13,000。若X4年度淨利為$74,000，則甲公司X4年之營業活動現金流量最大可能金額是多少？  [113高考會審]</div>
+    <div class="options">
+      <button class="option-btn"  onclick="selectSingle(this)">A. 流入$24,000</button>
+      <button class="option-btn"  onclick="selectSingle(this)">B. 流入$116,000</button>
+      <button class="option-btn"  onclick="selectSingle(this)">C. 流入$196,000</button>
+      <button class="option-btn" data-correct="true" onclick="selectSingle(this)">D. 流入$246,000</button>
+    </div>
+    <button class="submit-btn" onclick="checkAnswer(this)">確認提交此題</button>
+    <div class="explanation"><strong>💡 解析：</strong><br>$74,000+$60,000-$120,000+$66,000+$58,000-$13,000+$50,000+$80,000-$9,000=$246,000</div>
+  </div>
+  <div class="card">
+    <span class="badge ">單選題</span>
+    <div class="question">Q16. 甲公司X8年度之稅後淨利為$500,000，當年度並有下列事項：(1)應付公司債溢價攤銷$10,000。(2)遞延所得稅資產減少$6,000。(3)透過其他綜合損益按公允價值衡量投資(流動資產)，投資金額增加$15,000。(4)待出售非流動資產之處分利益$8,000。請問甲公司X8年度營業活動之現金流量為何？  [114地特三等]</div>
+    <div class="options">
+      <button class="option-btn"  onclick="selectSingle(this)">A. $508,000</button>
+      <button class="option-btn"  onclick="selectSingle(this)">B. $489,000</button>
+      <button class="option-btn" data-correct="true" onclick="selectSingle(this)">C. $488,000</button>
+      <button class="option-btn"  onclick="selectSingle(this)">D. $473,000</button>
+    </div>
+    <button class="submit-btn" onclick="checkAnswer(this)">確認提交此題</button>
+    <div class="explanation"><strong>💡 解析：</strong><br>500,000-10,000+6,000-8,000=488,000</div>
+  </div>
+  <div class="card">
+    <span class="badge ">單選題</span>
+    <div class="question">Q17. 甲公司X1年度稅前淨利為$1,000,000，採間接法編製現金流量表。若該公司有下列調整項目，則X1年度來自營業活動之現金流量為何？<br>折舊費用$200,000、專利權攤銷$50,000、資產處分利益$10,000、預期信用減損損失$15,000、應收帳款增加$10,000、存貨增加$20,000、合約負債減少$30,000、應付帳款增加$40,000、所得稅已支付$70,000。甲公司X1年度無實際減損而沖銷應收帳款之情形。  [114高考會審]</div>
+    <div class="options">
+      <button class="option-btn"  onclick="selectSingle(this)">A. $1,225,000</button>
+      <button class="option-btn" data-correct="true" onclick="selectSingle(this)">B. $1,165,000</button>
+      <button class="option-btn"  onclick="selectSingle(this)">C. $1,185,000</button>
+      <button class="option-btn"  onclick="selectSingle(this)">D. $1,235,000</button>
+    </div>
+    <button class="submit-btn" onclick="checkAnswer(this)">確認提交此題</button>
+    <div class="explanation"><strong>💡 解析：</strong><br>1,000,000+200,000+50,000-10,000+15,000-10,000-20,000-30,000+40,000-70,000=1,165,000</div>
+  </div>
+  <div class="card">
+    <span class="badge ">單選題</span>
+    <div class="question">Q18. 甲公司X2年度損益表中折舊費用為$25,000，出售土地利得$30,000，淨利為$1,350,000，X1年12月31日與X2年12月31日的應收帳款餘額分別為$600,000及$650,000，預付費用的餘額分別為$50,000及$40,000，應付帳款的餘額分別為$450,000及$380,000，則甲公司X2年度營業活動所產生的現金流量為：  [114退除役特考]</div>
+    <div class="options">
+      <button class="option-btn" data-correct="true" onclick="selectSingle(this)">A. $1,235,000</button>
+      <button class="option-btn"  onclick="selectSingle(this)">B. $1,265,000</button>
+      <button class="option-btn"  onclick="selectSingle(this)">C. $1,295,000</button>
+      <button class="option-btn"  onclick="selectSingle(this)">D. $1,455,000</button>
+    </div>
+    <button class="submit-btn" onclick="checkAnswer(this)">確認提交此題</button>
+    <div class="explanation"><strong>💡 解析：</strong><br>1,350,000+25,000-30,000-50,000+10,000-70,000=1,235,000</div>
+  </div>
+  <div class="card">
+    <span class="badge ">單選題</span>
+    <div class="question">Q19. 永成公司X4及X3年12月31日的比較資產負債表顯示，累積折舊餘額分別為$800,000及$600,000。X4年中出售一項不動產、廠房及設備，出售時之成本為$50,000，其帳面價值為$38,000，此為X4年唯一出售的不動產、廠房及設備。試問X4年現金流量表中營業活動所列的折舊費用為何？  [114薦任會計]</div>
+    <div class="options">
+      <button class="option-btn"  onclick="selectSingle(this)">A. $188,000</button>
+      <button class="option-btn"  onclick="selectSingle(this)">B. $200,000</button>
+      <button class="option-btn" data-correct="true" onclick="selectSingle(this)">C. $212,000</button>
+      <button class="option-btn"  onclick="selectSingle(this)">D. $224,000</button>
+    </div>
+    <button class="submit-btn" onclick="checkAnswer(this)">確認提交此題</button>
+    <div class="explanation"><strong>💡 解析：</strong><br>$800,000-$600,000+($50,000-$38,000)=$212,000</div>
+  </div>
+  <div class="card">
+    <span class="badge ">單選題</span>
+    <div class="question">Q20. 群峰公司在X4年有下列與其籌資活動相關的資訊：(1)群峰公司發行可轉換特別股之帳面價值，已轉換為群峰公司的普通股$360,000。(2)在X4年支付於X3年宣告的特別股股利$186,000。(3)支付提早贖回長期應付公司債(帳面價值$2,220,000）$2,250,000。)(4)出售庫藏股所得金額(帳面價值$258,000)$300,000。群峰公司將支付股利分類為籌資活動現金流量。試問群峰公司在其X4年現金流量表中，由籌資活動所使用的淨現金流量為何？  [114薦任會計]</div>
+    <div class="options">
+      <button class="option-btn"  onclick="selectSingle(this)">A. $1,590,000</button>
+      <button class="option-btn"  onclick="selectSingle(this)">B. $1,776,000</button>
+      <button class="option-btn" data-correct="true" onclick="selectSingle(this)">C. $2,136,000</button>
+      <button class="option-btn"  onclick="selectSingle(this)">D. $2,148,000</button>
+    </div>
+    <button class="submit-btn" onclick="checkAnswer(this)">確認提交此題</button>
+    <div class="explanation"><strong>💡 解析：</strong><br>$186,000+$2,250,000-$300,000=$2,136,000</div>
+  </div>
+  <div class="card">
+    <span class="badge ">單選題</span>
+    <div class="question">Q21. 甲公司X6年度相關資料如下：存貨總額增加$60,000、備抵跌價損失增加$90,000，及應付帳款增加$45,000。<br>若甲公司X6年度銷貨成本為$1,980,000(含存貨跌價損失$90,000)，則甲公司X6年度支付供應商貨款是多少？  [115高考會審]</div>
+    <div class="options">
+      <button class="option-btn"  onclick="selectSingle(this)">A. $1,815,000</button>
+      <button class="option-btn" data-correct="true" onclick="selectSingle(this)">B. $1,905,000</button>
+      <button class="option-btn"  onclick="selectSingle(this)">C. $1,965,000</button>
+      <button class="option-btn"  onclick="selectSingle(this)">D. $1,995,000</button>
+    </div>
+    <button class="submit-btn" onclick="checkAnswer(this)">確認提交此題</button>
+    <div class="explanation"><strong>💡 解析：</strong><br>不考慮存貨跌價損失的銷貨成本=1,980,000-90,000=1,890,000<br>本期支付貨款金額=1,890,000+60,000-45,000=1,905,000</div>
+  </div>
+  <div class="card">
+    <span class="badge ">單選題</span>
+    <div class="question">Q22. 甲公司於X2年度以現金$75,000，出售了一台成本為$100,000、且出售時帳面金額為$60,000的機器設備。根據甲公司的資產負債表紀錄，在X1年底時，帳上機器設備總額為$900,000、累計折舊總額為$200,000；而到了X2年底，機器設備總額已因現金增購增加至$1,050,000，累計折舊總額則為$280,000。下列有關甲公司X2年度現金流量表(間接法)中相關資訊，何者錯誤？  [115高考會審]</div>
+    <div class="options">
+      <button class="option-btn"  onclick="selectSingle(this)">A. 出售機器利益$15,000，列為本期稅前淨利減項</button>
+      <button class="option-btn" data-correct="true" onclick="selectSingle(this)">B. 折舊費用$120,000，列本期稅前淨利減項</button>
+      <button class="option-btn"  onclick="selectSingle(this)">C. 於投資活動中，列報購買機器設備之現金流出$250,000</button>
+      <button class="option-btn"  onclick="selectSingle(this)">D. 於投資活動中，列報出售固定資產現金流入$75,000</button>
+    </div>
+    <button class="submit-btn" onclick="checkAnswer(this)">確認提交此題</button>
+    <div class="explanation"><strong>💡 解析：</strong><br>出售機器利益=$75,000-$60,000=$15,000<br>出售設備時的累計折舊=$100,000-$60,000=$40,000<br>$200,000+本期折舊費用-$40,000=$280,000<br>本期折舊費用=$120,000，列本期稅前淨利加項</div>
+  </div>
+  <div class="card">
+    <span class="badge ">單選題</span>
+    <div class="question">Q23. 甲公司X9年度淨利$60,000，部分資產負債表帳戶資料如下：(1)X8年12月31日，應付現金股利為$20,000，普通股股本(每股面額$10)為$60,000，保留盈餘為$100,000，資本公積為$15,000。(2)X9年12月31日，應付現金股利為$18,000，普通股股本$70,000，保留盈餘為$120,000，資本公積為$22,000。甲公司X9年，支付現金股利金額為何？(甲公司X9未宣告股票股利)  [110會計師改編]</div>
+    <div class="options">
+      <button class="option-btn"  onclick="selectSingle(this)">A. $2,000</button>
+      <button class="option-btn"  onclick="selectSingle(this)">B. $22,000</button>
+      <button class="option-btn"  onclick="selectSingle(this)">C. $40,000</button>
+      <button class="option-btn" data-correct="true" onclick="selectSingle(this)">D. $42,000</button>
+    </div>
+    <button class="submit-btn" onclick="checkAnswer(this)">確認提交此題</button>
+    <div class="explanation"><strong>💡 解析：</strong><br>$100,000+$60,000-宣告現金股利=$120,000，宣告現金股利=$40,000<br>$20,000+$40,000-支付現金股利=$18,000，支付現金股利=$42,000</div>
+  </div>
+  <button class="close-btn" onclick="closePage()">❌ 關閉本頁</button>
+  <div class="copyright">© 滄海圖書資訊股份有限公司</div>
+</div>
+<script>
+function selectSingle(btn) { const options = btn.parentElement.querySelectorAll('.option-btn'); options.forEach(b => b.classList.remove('selected')); btn.classList.add('selected'); }
+function selectMulti(btn) { btn.classList.toggle('selected'); }
+function checkAnswer(submitBtn) { 
+  const card = submitBtn.closest('.card'); const buttons = card.querySelectorAll('.option-btn'); const exp = card.querySelector('.explanation'); const selectedButtons = card.querySelectorAll('.option-btn.selected'); 
+  if (selectedButtons.length === 0) { 
+    submitBtn.innerText = "⚠️ 請先選擇答案再提交喔！"; submitBtn.style.background = "#ff4d4f";
+    setTimeout(() => { submitBtn.innerText = "確認提交此題"; submitBtn.style.background = "#2383e2"; }, 2000); return; 
+  } 
+  buttons.forEach(b => b.disabled = true); submitBtn.style.display = 'none'; 
+  buttons.forEach(b => { 
+    const isBtnCorrect = b.getAttribute('data-correct') === 'true'; const isBtnSelected = b.classList.contains('selected'); 
+    if (isBtnCorrect) b.classList.add('correct'); 
+    if (isBtnSelected && !isBtnCorrect) b.classList.add('wrong'); 
+  }); 
+  exp.style.display = 'block'; 
+}
+function closePage() {
+  if (confirm("確認要關閉此測驗視窗嗎？")) {
+    window.close();
+    setTimeout(() => { alert("請直接關閉或切換此瀏覽器分頁。"); }, 300);
+  }
+}
+</script>
+</body>
+</html>
